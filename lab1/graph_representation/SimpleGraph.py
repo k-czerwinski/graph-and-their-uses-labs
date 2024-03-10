@@ -80,3 +80,15 @@ class SimpleGraph:
             adjacency_list[vertices[0]].append(vertices[1])
             adjacency_list[vertices[1]].append(vertices[0])
         return adjacency_list
+
+    @staticmethod
+    def load_adjacency_list(file_path):
+        data = []
+        with open(file_path, 'r') as file:
+            for line in file:
+                row_data = [int(x) for x in line.split()]
+                data.append(row_data)
+
+        neighborhood_list = np.array(data, dtype=object)
+        return neighborhood_list
+
