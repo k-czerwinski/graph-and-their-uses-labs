@@ -1,4 +1,4 @@
-from graphic_sequence.utils import is_graphic_sequence
+from graphic_sequence.utils import is_graphic_sequence, construct_graph_from_sequence
 import networkx as nx
 import matplotlib.pyplot as plt
 from graph_drawing.utils import *
@@ -10,9 +10,7 @@ with open(file_path, 'r') as file:
     print(sequence)
     is_graphic_seq = is_graphic_sequence(sequence)
     print("Is graphic sequence? " + str(is_graphic_seq))
-    if(is_graphic_seq):
-        sequence = sorted(sequence)
-        G = nx.havel_hakimi_graph(sequence)
-        G = rename_nodes_labels(G)
-        nx.draw_circular(G, with_labels=True)
-        plt.show()
+    G = construct_graph_from_sequence(sequence)
+    G = rename_nodes_labels(G)
+    nx.draw_circular(G, with_labels=True)
+    plt.savefig('../target/graph_from_sequence.png')
