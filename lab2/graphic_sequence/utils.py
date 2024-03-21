@@ -2,22 +2,32 @@ import networkx as nx
 import random
 
 def is_graphic_sequence(sequence):
-    sequence = sorted(sequence, reverse=True)
-    while sequence:
-        if sequence[0] < 0:
+    A = sequence.copy()
+    
+    A.sort(reverse=True)
+    
+    while True:
+        if all(x == 0 for x in A):
+            return True
+
+        if A[0] > len(A) - 1 or any(x < 0 for x in A):
             return False
-        if sequence[0] == 0:
-            sequence = sequence[1:]
-            continue
-        for i in range(1, sequence[0] + 1):
-            sequence[i] -= 1
-        sequence = sorted(sequence[1:], reverse=True)
-    return True
+        
+        d = A[0]
+        A[0] = 0
+        
+        if d > len(A) - 1:
+            return False
+        
+        for i in range(1, d + 1):
+            A[i] -= 1
+            
+        A.sort(reverse=True)
 
 
-def construct_graph_from_sequence(sequence):
+def construct_graph_from_sequence(sequence) -> nx.Graph:
     if not is_graphic_sequence(sequence):
-        return None
+        return nx.Graph()
 
     G = nx.Graph()
 
