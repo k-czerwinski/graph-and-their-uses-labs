@@ -14,4 +14,18 @@ def is_eulerian(sequence):
     return all([x % 2 == 0 and x != 0 for x in sequence])
     
 def find_euler_cycle(graph: nx.Graph):
-    return list(nx.eulerian_circuit(graph))
+    start_vertex = random.choice(list(graph.nodes))
+    current_vertex = start_vertex
+    euler_cycle = []
+    while graph.edges:
+        neighbors = list(graph.neighbors(current_vertex))
+        if neighbors:
+            next_vertex = random.choice(neighbors)
+            graph.remove_edge(current_vertex, next_vertex)
+            if len(graph[current_vertex]) == 0:
+                graph.remove_node(current_vertex)
+            euler_cycle.append((current_vertex, next_vertex))
+            current_vertex = next_vertex
+        else:
+            break
+    return euler_cycle
