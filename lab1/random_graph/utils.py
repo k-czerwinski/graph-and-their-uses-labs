@@ -13,9 +13,11 @@ def generate_random_graph(number_of_nodes, number_of_edges):
 
     adjacency_matrix = np.zeros((number_of_nodes, number_of_nodes))
     all_comb = combinations(range(number_of_nodes), 2)
-    for v1, v2 in sample(list(all_comb), number_of_edges):
+    for v1, v2 in sample(list(all_comb), k=number_of_edges):
         adjacency_matrix[v1-1][v2-1] = 1
         adjacency_matrix[v2-1][v1-1] = 1
+        print('{}->{}'.format(v1, v2))
+    print(adjacency_matrix)
     return adjacency_matrix
 
 def generate_random_graph_with_edge_probability(number_of_nodes, edge_exist_probability):
