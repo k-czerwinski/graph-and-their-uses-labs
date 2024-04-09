@@ -1,7 +1,9 @@
-from lab4.digraph_drawing.utils import draw_digraph_from_adjacency_matrix
-from lab4.korsaju.utils import korsaju
-from lab4.random_digraph.utils import generate_random_digraph_with_edge_probability
+from digraph_drawing.utils import draw_digraph_from_adjacency_matrix, draw_graph_with_weights
+from korsaju.utils import korsaju
+from random_digraph.utils import generate_random_digraph_with_edge_probability, generate_random_weights
 from collections import defaultdict
+import networkx as nx
+# from bellman_ford.utils import bellman_ford
 
 # ex 1
 print('---EXERCISE 1---')
@@ -20,3 +22,12 @@ for vertex, group in enumerate(components):
 print("Strongly Connected Component Groups:")
 for group, vertices in group_vertices.items():
     print("Group {}: {}".format(group, vertices))
+    
+#ex 3
+print('---EXERCISE 3---')
+if(len(group_vertices) == 1):
+    print("The graph is strongly connected")
+    G, weights = generate_random_weights(adjency_matrix)
+    draw_graph_with_weights(G, weights, 'ex3_graph.png')
+else:
+    print("The graph is not strongly connected")
