@@ -3,7 +3,7 @@ from korsaju.utils import korsaju
 from random_digraph.utils import generate_random_digraph_with_edge_probability, generate_random_weights
 from collections import defaultdict
 import networkx as nx
-# from bellman_ford.utils import bellman_ford
+from bellman_ford.utils import bellman_ford
 
 # ex 1
 print('---EXERCISE 1---')
@@ -29,5 +29,9 @@ if(len(group_vertices) == 1):
     print("The graph is strongly connected")
     G, weights = generate_random_weights(adjency_matrix)
     draw_graph_with_weights(G, weights, 'ex3_graph.png')
+    distances, predecessors = bellman_ford(G, weights, 1)
+    print("Distances from the source vertex:")
+    for vertex, distance in distances.items():
+        print(f"Vertex {vertex}: {distance}")
 else:
     print("The graph is not strongly connected")
