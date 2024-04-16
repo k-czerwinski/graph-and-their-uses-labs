@@ -8,7 +8,9 @@ def rename_nodes_labels(G:nx.Graph):
         return G
 
 def draw_graph_on_circle_from_adjacency_matrix(adjacency_matrix:np.matrix, filename:str):
+        plt.figure()
         G = nx.from_numpy_array(adjacency_matrix)
+        print(G)
         G = rename_nodes_labels(G)
         nx.draw_circular(G, with_labels=True)
         plt.savefig(filename)
