@@ -59,8 +59,6 @@ class WeightEdgesGraph(SimpleGraph):
         return dist, paths
 
 
-
-    
     def __min_distance_vertex(self, dist, visited):
         min_dist = float('inf')
         min_vertex = -1
@@ -71,29 +69,25 @@ class WeightEdgesGraph(SimpleGraph):
         return min_vertex
 
     def compute_distance_matrix(self):
-        num_vertices = len(self.WEIGHT_MATRIX)
-        distance_matrix = np.zeros((num_vertices, num_vertices), dtype=int)
+        num_vertices = len(self.array)
+        distance_matrix = [[0] * num_vertices for _ in range(num_vertices)]
 
         for i in range(num_vertices):
-            shortest_distances = self.dijkstra_shortest_path(i)
-            distance_matrix[i] = shortest_distances
+            dist, paths = self.dijkstra_shortest_path(i + 1)
+            for j in range(num_vertices):
+                distance_matrix[i][j] = dist[j]
 
-        self.distance_matrix = distance_matrix
         return distance_matrix
 
     def find_center(self):
-        if self.distance_matrix is None:
-            self.compute_distance_matrix()
 
-        total_distances = np.sum(self.distance_matrix, axis=1)
+        total_distances = np.sum(self.compute_distance_matrix(), axis=1)
         center_index = np.argmin(total_distances)
         return center_index
 
     def find_minimax_center(self):
-        if self.distance_matrix is None:
-            self.compute_distance_matrix()
 
-        max_distances = np.max(self.distance_matrix, axis=1)
+        max_distances = np.max(self.compute_distance_matrix(), axis=1)
         minimax_center_index = np.argmin(max_distances)
         return minimax_center_index
 
