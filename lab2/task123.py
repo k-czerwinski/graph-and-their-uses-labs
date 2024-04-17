@@ -45,35 +45,3 @@ print("Largest connected component: " + str(LargestConnectedComponent))
 plt.clf()
 nx.draw_circular(G, node_color = color_map(comp) ,with_labels=True)
 plt.savefig('graph_with_component.png')
-
-# task 4
-print("Task 4")
-number_of_nodes = int(input("Enter number of nodes: "))
-sequence = generate_random_euler_graph(number_of_nodes)
-G = construct_graph_from_sequence(sequence)
-plt.clf()
-nx.draw_circular(G,with_labels=True)
-plt.savefig('euler_graph.png')
-print(find_euler_cycle(G))
-
-# task 5
-print("Task 5")
-number_of_nodes = int(input("Enter number of nodes: "))
-node_degree = int(input("Enter node degree: "))
-G = generate_random_k_regular_graph(number_of_nodes, node_degree)
-plt.clf()
-nx.draw_circular(G, with_labels=True)
-plt.savefig('k_regular_graph.png')
-
-# task 6
-print("Task 6")
-number_of_nodes = int(input("Enter number of nodes: "))
-node_of_edges = int(input("Enter edges: "))
-G = nx.Graph(generate_random_graph(number_of_nodes, node_of_edges))
-plt.clf()
-nx.draw_circular(G,with_labels=True)
-plt.savefig('random_graph.png')
-hamiltonian, path = is_hamiltonian(G)
-if hamiltonian:
-    path.append(path[0])
-print(hamiltonian, path)
