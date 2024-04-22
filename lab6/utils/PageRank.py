@@ -1,5 +1,5 @@
 import numpy as np
-from DirectedGraph import DirectedGraphFromAdjacencyList
+from lab6.utils.DirectedGraph import DirectedGraphFromAdjacencyList
 
 class PageRank:
     def __init__(self, graph, damping_factor=0.85, epsilon=1.0e-8, max_iter=100):
@@ -36,9 +36,3 @@ class PageRank:
         for idx, rank in sorted_pagerank:
             print("{} ==> PageRank = {:.6f}".format(chr(idx+65), rank))
 
-# Example usage
-filename = "adjacency_list.txt"
-G = DirectedGraphFromAdjacencyList(filename).graph
-pagerank = PageRank(G)
-print("PageRank values:")
-pagerank.print_pagerank()

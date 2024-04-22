@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from DirectedGraph import DirectedGraphFromAdjacencyList
+from lab6.utils.DirectedGraph import DirectedGraphFromAdjacencyList
 
 class PageRankRandomWalkTeleportation:
     def __init__(self, graph, num_steps, damping_factor=0.85):
@@ -30,18 +30,3 @@ class PageRankRandomWalkTeleportation:
         # Normalizacja wyników PageRank przez liczbę kroków
         page_rank = {node: count / self.num_steps for node, count in visit_counts.items()}
         return page_rank
-
-# Example usage
-filename = "adjacency_list.txt"
-G = DirectedGraphFromAdjacencyList(filename).graph
-
-num_steps = 10000  # Liczba kroków
-pagerank_rw_teleport = PageRankRandomWalkTeleportation(G, num_steps)
-
-# Sortowanie wyników PageRank
-sorted_pagerank = sorted(pagerank_rw_teleport.page_rank.items(), key=lambda x: x[1], reverse=True)
-
-# Wydruk posortowanych wyników
-
-for idx, (node, rank) in enumerate(sorted_pagerank, 1):
-    print("{} ==> PageRank = {:.6f}".format(node, rank))
