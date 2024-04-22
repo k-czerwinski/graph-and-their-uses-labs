@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from WeightEdgesGraph import WeightEdgesGraph, GraphRepresentation
+from  WeightEdgesGraph import WeightEdgesGraph, GraphRepresentation
 
 # Example usage:
 file_path = "lab3/sample_data/weight_adjacency_matrix.txt"
