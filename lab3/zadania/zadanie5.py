@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from WeightEdgesGraph import WeightEdgesGraph, GraphRepresentation
+from graph_representation.WeightEdgesGraph import WeightEdgesGraph, GraphRepresentation
+from graph_drawing import generate_random_graph
 
 # Ścieżka do pliku z macierzą wag
 file_path = "sample_data/weight_adjacency_matrix.txt"

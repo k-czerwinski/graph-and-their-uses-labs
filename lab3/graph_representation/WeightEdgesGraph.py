@@ -2,25 +2,41 @@ import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt  
 from SimpleGraph import SimpleGraph, GraphRepresentation
-import heapq
 
 class WeightEdgesGraph(SimpleGraph):
     def __init__(self, input_data, representation_type=None):
         if isinstance(input_data, str):
             # Read data from file if input is a file path
             self.WEIGHT_MATRIX = self.__read_weight_matrix(input_data)
+            
         elif isinstance(input_data, np.ndarray):
             # Directly assign input data
             self.WEIGHT_MATRIX = input_data
+            
         else:
             raise TypeError("Input data must be either a file path or a NumPy array")
         
         if representation_type is not None:
+            self.WEIGHT_MATRIX  = self.__generate_random_weight_matrix(input_data)
             super().__init__(self.WEIGHT_MATRIX, representation_type)
         else:
+            
             super().__init__(self.WEIGHT_MATRIX, GraphRepresentation.NEIGHBOURHOOD_MATRIX)
         
         self.distance_matrix = None
+    
+    def __generate_random_weight_matrix(self, adjacency_matrix):
+    # Wygenerowanie losowej macierzy wag na podstawie macierzy sąsiedztwa
+        size = adjacency_matrix.shape[0]
+        
+        weight_matrix = np.zeros((size, size))  # Inicjalizacja macierzy wag zerami
+
+        for i in range(size):
+            for j in range(i, size):
+                if adjacency_matrix[i][j] == 1.:
+                    x = np.random.randint(1, 10)  # Losowanie wagi z przedziału [1, 10]
+                    weight_matrix[i][j] = weight_matrix[j][i] = x  # Losowanie wagi tylko dla krawędzi, które istnieją w macierzy sąsiedztwa
+        return weight_matrix
 
     def __read_weight_matrix(self, file_path):
         with open(file_path, 'r') as file:
@@ -57,16 +73,6 @@ class WeightEdgesGraph(SimpleGraph):
                         paths[neighbor - 1] = paths[current_vertex - 1] + [current_vertex]
 
         return dist, paths
-
-
-    def __min_distance_vertex(self, dist, visited):
-        min_dist = float('inf')
-        min_vertex = -1
-        for v in range(len(dist)):
-            if dist[v] < min_dist and not visited[v]:
-                min_dist = dist[v]
-                min_vertex = v
-        return min_vertex
 
     def compute_distance_matrix(self):
         num_vertices = len(self.array)
@@ -121,7 +127,6 @@ class WeightEdgesGraph(SimpleGraph):
 
         # Sort the edges by weight
         edges.sort(key=lambda x: x[2])
-        print(edges)
         # Kruskal's algorithm
         for edge in edges:
             u, v, weight = edge
