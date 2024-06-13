@@ -1,5 +1,9 @@
+import numpy as np
+
 from digraph_drawing.utils import draw_digraph_from_adjacency_matrix, draw_graph_with_weights
 from korsaju.utils import korsaju
+from lab4.Digraph import GraphRepresentation
+from lab4.Digraph import Digraph
 from random_digraph.utils import generate_random_digraph_with_edge_probability, generate_random_weights
 from collections import defaultdict
 import networkx as nx
@@ -10,8 +14,18 @@ print('---EXERCISE 1---')
 number_of_vertices = int(input("Enter the number of vertices: "))
 edge_exist_probability = float(input("Enter the probability of edge existing: "))
 adjency_matrix = generate_random_digraph_with_edge_probability(number_of_vertices, edge_exist_probability)
+adjency_matrix = np.array([[0., 0., 0., 0., 0., 0., 1.],
+                  [1., 0., 1., 0., 0., 1., 1.],
+                  [0., 1., 0., 0., 0., 1., 0.],
+                  [0., 0., 1., 0., 1., 0., 0.],
+                  [0., 0., 1., 0., 0., 0., 0.],
+                  [0., 0., 0., 0., 1., 0., 0.],
+                  [1., 0., 0., 0., 0., 0., 0.]])
 print(adjency_matrix)
-draw_digraph_from_adjacency_matrix(adjency_matrix, 'ex1_graph.png')
+digraph = Digraph(adjency_matrix, graph_representation=GraphRepresentation.NEIGHBOURHOOD_MATRIX)
+print(digraph.get_adjacency_list())
+print(digraph.get_incidence_matrix())
+# draw_digraph_from_adjacency_matrix(adjency_matrix, 'ex1_graph.png')
 print('---EXERCISE 2---')
 # ex 2
 components = korsaju(adjency_matrix)
